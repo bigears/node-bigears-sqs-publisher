@@ -62,10 +62,11 @@ function publishToQueue(bsq, location, id, body)
         Bucket: {
           DataType: 'String',
           StringValue: bsq.name
-        }
+        },
         Region: {
           DataType: 'String',
           StringValue: bsq.region
+        }
       }
     });
   });
