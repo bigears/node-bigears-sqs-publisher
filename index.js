@@ -129,7 +129,7 @@ function generateId()
 BigearsSqsQueue.prototype.publish = function(payload)
 {
   var id = generateId();
-  var length = JSON.stringify(inlinePayload(this.name, this.region, id, payload))).length
+  var length = JSON.stringify(inlinePayload(this.name, this.region, id, payload)).length
   var method = length >= 65536 ? publishS3 : publishInline;
 
   return method.call(this, id, payload).then(function() {
