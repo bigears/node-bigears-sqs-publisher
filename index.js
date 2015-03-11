@@ -1,10 +1,10 @@
 var Promise      = require('bluebird')
   , regionBucket = require('region-bucket')
   , uuid         = require('node-uuid')
-  , debug        = require('debug')('bigears-sqs-queue')
+  , debug        = require('debug')('bigears-sqs-publisher')
   , sqsQueue     = require('sqs-queue');
 
-var BigearsSqsQueue = function(region, name)
+var BigearsSqsPublisher = function(region, name)
 {
   this.region = region;
   this.name = name;
@@ -126,16 +126,14 @@ function generateId()
   return uuid.v4();
 }
 
-BigearsSqsQueue.prototype.publish = function(payload)
+BigearsSqsPublisher.prototype.publish = function(payload)
 {
   var id = generateId();
   var length = JSON.stringify(inlinePayload(this.name, this.region, id, payload)).length
   var method = length >= 65536 ? publishS3 : publishInline;
 
-  return method.call(this, id, payload).then(function() {
-    return id;
-  });
+  return method.call(this, this, id, payload).thenReturn(id);
 };
 
-module.exports = BigearsSqsQueue;
+module.exports = BigearsSqsPublisher;
 
