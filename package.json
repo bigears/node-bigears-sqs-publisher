@@ -8,10 +8,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.1.16",
-    "bluebird": "^2.9.13",
+    "bluebird": "^3.1.1",
     "debug": "^2.1.2",
     "node-uuid": "^1.4.3",
     "sqs-queue": "git://github.com/bigears/node-sqs-queue"
+  },
+  "peerDependencies": {
+    "aws-sdk": ">2.0.0"
   }
 }
